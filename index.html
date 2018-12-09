@@ -6,7 +6,7 @@
   <title>Memory Game</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.12.0/lodash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 </head>
@@ -35,12 +35,36 @@
 
   <script charset="utf-8">
     var CardTypes = [
-      { name: "vue", image: "https://vuejs.org/images/logo.png" },
-      { name: "express", image: "https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" },
-      { name: "mongo", image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/MongoDB-Logo.svg/527px-MongoDB-Logo.svg.png" },
-      { name: "nodejs", image: "https://worldvectorlogo.com/logos/nodejs-icon.svg" },
-      { name: "webpack", image: "https://camo.githubusercontent.com/66747a6e05a799aec9c6e04a3e721ca567748e8b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313336353838312f313931383337332f32653035373166612d376462632d313165332d383436352d3839356632393164343366652e706e67" },
-      { name: "babel", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Babel_Logo.svg/1200px-Babel_Logo.svg.png" }
+      {
+        name: "vue",
+        image: "https://vuejs.org/images/logo.png",
+        info: "Vue.js features an incrementally adoptable architecture that focuses on declarative rendering and component composition. Advanced features required for complex applications such as routing, state management and build tooling are offered via officially maintained supporting libraries and packages."
+      },
+      {
+        name: "express",
+        image: "https://camo.githubusercontent.com/fc61dcbdb7a6e49d3adecc12194b24ab20dfa25b/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67",
+        info: "Express.js, or simply Express, is a web application framework for Node.js, released as free and open-source software under the MIT License. It is designed for building web applications and APIs.[3] It has been called the de facto standard server framework for Node.js"
+      },
+      {
+        name: "mongo",
+        image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/MongoDB-Logo.svg/527px-MongoDB-Logo.svg.png",
+        info: "MongoDB is a cross-platform document-oriented database program. It is issued under the Server Side Public License, which is currently being evaluated for OSI certification. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemata. MongoDB is developed by MongoDB Inc."
+      },
+      {
+        name: "nodejs",
+        image: "https://worldvectorlogo.com/logos/nodejs-icon.svg",
+        info: "Node.js is an open-source, cross-platform JavaScript run-time environment that executes JavaScript code outside of a browser. Typically, JavaScript is used primarily for client-side scripting, in which scripts written in JavaScript are embedded in a webpage's HTML and run client-side by a JavaScript engine in the user's web browser. Node.js lets developers use JavaScript to write Command Line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user's web browser."
+      },
+      {
+        name: "webpack",
+        image: "https://camo.githubusercontent.com/66747a6e05a799aec9c6e04a3e721ca567748e8b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313336353838312f313931383337332f32653035373166612d376462632d313165332d383436352d3839356632393164343366652e706e67",
+        info: "Webpack is an open-source JavaScript module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset. Webpack takes modules with dependencies and generates static assets representing those modules. It is a module bundler primarily for JavaScript, but it can transform front-end assets like HTML, CSS, even images if the corresponding plugins are included."
+      },
+      {
+        name: "babel",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Babel_Logo.svg/1200px-Babel_Logo.svg.png",
+        info: "Babel or Babel.js is a free and open-source JavaScript compiler and configurable transpiler used in web development. Babel allows software developers to write source code in a preferred programming language or markup language and have it translated by Babel into JavaScript, a language understood by modern web browsers."
+      }
     ];
 
     var shuffleCards = function shuffleCards() {
@@ -92,6 +116,11 @@
           }
         },
 
+        showInfo: function showInfo() {
+          var flippedCards = this.flippedCards();
+          alert(flippedCards[0].info);
+        },
+
         setCardFounds: function setCardFounds() {
           _.each(this.cards, function (card) {
             if (card.flipped)
@@ -141,6 +170,8 @@
 
             if (this.sameFlippedCard()) {
               // Match!
+              this.showInfo();
+
               this.flipBackTimer = setTimeout(function () {
                 _this2.clearFlipBackTimer();
                 _this2.setCardFounds();
@@ -165,13 +196,11 @@
           _.map(this.cards, function (card) { return card.flipped = false; });
         },
 
-
         clearFlipBackTimer: function clearFlipBackTimer() {
           clearTimeout(this.flipBackTimer);
           this.flipBackTimer = null;
         }
       },
-
 
       created: function created() {
         this.resetGame();
