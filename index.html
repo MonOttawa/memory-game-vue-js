@@ -35,6 +35,7 @@
       <div class="overlay"></div>
       <div class="content">
         <div id="info-title" class="title"></div>
+        <img id="info-image" src="" height=70>
         <div id="info-description" class="score"></div>
         <button @click="closeModal()">Let's keep playing!</button>
       </div>
@@ -113,11 +114,11 @@
         },
 
         closeModal: function closeModal() {
-          $("#info").addClass("hidden");
+          $("#info").hide();
         },
 
         showModal: function showModal() {
-          $("#info").removeClass("hidden");
+          $("#info").fadeIn("slow");
         },
 
         flippedCards: function flippedCards() {
@@ -138,9 +139,10 @@
 
         showInfoAboutFramework: function showInfoAboutFramework() {
           this.showModal();
-          var flippedCards = this.flippedCards();
-          $("#info-title").html("Want to learn more about " + this.capitalizeString(flippedCards[0].name) + "?");
-          $("#info-description").html(flippedCards[0].info);
+          var flippedCard = this.flippedCards()[0];
+          $("#info-title").html("Want to learn more about " + this.capitalizeString(flippedCard.name) + "?");
+          $("#info-description").html(flippedCard.info);
+          $("#info-image").attr("src", flippedCard.image);
         },
 
         setCardFounds: function setCardFounds() {
