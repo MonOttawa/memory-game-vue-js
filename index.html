@@ -28,12 +28,16 @@
       <div class="content">
         <div class="title">You won!</div>
         <div class="score">Score: {{ score }}</div>
-        <button class="newGame" @click="resetGame()">New game</button>
+        <button @click="resetGame()">New game</button>
       </div>
     </div>
-    <div id="info">
-      <div id="info-title"></div>
-      <div id="info-description"></div>
+    <div id="info" class="splash hidden">
+      <div class="overlay"></div>
+      <div class="content">
+        <div id="info-title" class="title"></div>
+        <div id="info-description" class="score"></div>
+        <button @click="closeModal()">Let's keep playing!</button>
+      </div>
     </div>
   </div>
 
@@ -108,6 +112,14 @@
           this.cards = cards;
         },
 
+        closeModal: function closeModal() {
+          $("#info").addClass("hidden");
+        },
+
+        showModal: function showModal() {
+          $("#info").removeClass("hidden");
+        },
+
         flippedCards: function flippedCards() {
           return _.filter(this.cards, function (card) { return card.flipped; });
         },
@@ -125,8 +137,9 @@
         },
 
         showInfoAboutFramework: function showInfoAboutFramework() {
+          this.showModal();
           var flippedCards = this.flippedCards();
-          $("#info-title").html("What do you know about " + this.capitalizeString(flippedCards[0].name) + "?");
+          $("#info-title").html("Want to learn more about " + this.capitalizeString(flippedCards[0].name) + "?");
           $("#info-description").html(flippedCards[0].info);
         },
 
@@ -340,10 +353,8 @@
       position: absolute;
       left: 0;
       right: 0;
-      top: 0;
-      bottom: 0;
-      width: 400px;
-      height: 200px;
+      top: 30px;
+      max-width: 500px;
       margin: auto;
       text-align: center;
       background-color: rgba(51, 51, 51, 0.9);
@@ -384,6 +395,10 @@
     }
     #info-title {
       font-weight: bolder;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </body>
