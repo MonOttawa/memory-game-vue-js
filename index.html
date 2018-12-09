@@ -31,6 +31,10 @@
         <button class="newGame" @click="resetGame()">New game</button>
       </div>
     </div>
+    <div id="info">
+      <div id="info-title"></div>
+      <div id="info-description"></div>
+    </div>
   </div>
 
   <script charset="utf-8">
@@ -47,7 +51,7 @@
       },
       {
         name: "mongo",
-        image: "https://upload.wikimedia.org/wikipedia/en/thumb/4/45/MongoDB-Logo.svg/527px-MongoDB-Logo.svg.png",
+        image: "https://www.klipfolio.com/sites/default/files/integrations/mongo.png",
         info: "MongoDB is a cross-platform document-oriented database program. It is issued under the Server Side Public License, which is currently being evaluated for OSI certification. Classified as a NoSQL database program, MongoDB uses JSON-like documents with schemata. MongoDB is developed by MongoDB Inc."
       },
       {
@@ -57,7 +61,7 @@
       },
       {
         name: "webpack",
-        image: "https://camo.githubusercontent.com/66747a6e05a799aec9c6e04a3e721ca567748e8b/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313336353838312f313931383337332f32653035373166612d376462632d313165332d383436352d3839356632393164343366652e706e67",
+        image: "https://raw.githubusercontent.com/webpack/media/master/logo/icon-square-big.png",
         info: "Webpack is an open-source JavaScript module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of transforming, bundling, or packaging just about any resource or asset. Webpack takes modules with dependencies and generates static assets representing those modules. It is a module bundler primarily for JavaScript, but it can transform front-end assets like HTML, CSS, even images if the corresponding plugins are included."
       },
       {
@@ -116,9 +120,14 @@
           }
         },
 
-        showInfo: function showInfo() {
+        capitalizeString: function capitalizeString(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+
+        showInfoAboutFramework: function showInfoAboutFramework() {
           var flippedCards = this.flippedCards();
-          alert(flippedCards[0].info);
+          $("#info-title").html("What do you know about " + this.capitalizeString(flippedCards[0].name) + "?");
+          $("#info-description").html(flippedCards[0].info);
         },
 
         setCardFounds: function setCardFounds() {
@@ -170,7 +179,7 @@
 
             if (this.sameFlippedCard()) {
               // Match!
-              this.showInfo();
+              this.showInfoAboutFramework();
 
               this.flipBackTimer = setTimeout(function () {
                 _this2.clearFlipBackTimer();
@@ -247,8 +256,8 @@
     .cards .card {
       position: relative;
       display: inline-block;
-      width: 100px;
-      height: 150px;
+      width: 90px;
+      height: 130px;
       margin: 1em 2em;
       -moz-transition: opacity 0.5s;
       -o-transition: opacity 0.5s;
@@ -366,8 +375,15 @@
     }
 
     .container {
-      max-width: 660px;
+      max-width: 620px;
       margin: 30px auto 30px auto;
+    }
+
+    #info {
+      text-align: center;
+    }
+    #info-title {
+      font-weight: bolder;
     }
   </style>
 </body>
