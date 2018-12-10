@@ -69,7 +69,7 @@ new Vue({
     },
 
     closeModal: function closeModal() {
-      $("#info").hide();
+      $("#info").fadeOut("fast");
     },
 
     showModal: function showModal() {
@@ -119,19 +119,26 @@ new Vue({
       this.startTime = moment();
 
       this.timer = setInterval(function () {
+        _this.updateScore()
         _this.time = moment(moment().diff(_this.startTime)).format("mm:ss");
       }, 1000);
+    },
+
+    updateScore: function updateScore() {
+      var elapsedTime = moment().diff(this.startTime, 'seconds')
+      var score = 1000 - elapsedTime * 2 - this.turns * 10
+      this.score = Math.max(score, 0)
     },
 
     finishGame: function finishGame() {
       this.started = false;
       clearInterval(this.timer);
-      var score = 1000 - (moment().diff(this.startTime, 'seconds') - CardTypes.length * 5) * 3 - (this.turns - CardTypes.length) * 5;
-      this.score = Math.max(score, 0);
+      this.updateScore();
       this.showSplash = true;
     },
 
     flipCard: function flipCard(card) {
+      this.updateScore();
       var _this2 = this;
       if (card.found || card.flipped) return;
 

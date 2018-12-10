@@ -18,6 +18,7 @@
     <div class="header">
       <div><span class="label">Time:</span> <span class="value">{{ time }} </span></div>
       <div><span class="label">Turns:</span> <span class="value">{{ turns }} </span></div>
+      <div><span class="label">Score:</span> <span class="value">{{ score }} </span></div>
     </div>
     <div class="cards">
       <div class="card" v-for="card in cards" :class="{ flipped: card.flipped, found: card.found }" @click="flipCard(card)">
@@ -28,9 +29,8 @@
     <div class="splash" v-if="showSplash">
       <div class="overlay"></div>
       <div class="content">
-        <div class="title">You won!</div>
-        <div class="score">Score: {{ score }}</div>
-        <button @click="resetGame()">New game</button>
+        <div class="title">Score: {{ score }}</div>
+        <button @click="resetGame()">Play again!</button>
       </div>
     </div>
     <div id="info" class="splash hidden">
@@ -39,7 +39,7 @@
         <div id="info-title" class="title"></div>
         <img id="info-image" src="" height=70>
         <div id="info-description" class="score"></div>
-        <button @click="closeModal()">Let's keep playing!</button>
+        <button @click="closeModal()">keep playing</button>
       </div>
     </div>
   </div>
